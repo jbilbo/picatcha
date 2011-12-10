@@ -1,21 +1,21 @@
-require 'recaptcha/configuration'
-require 'recaptcha/client_helper'
-require 'recaptcha/verify'
+require 'picatcha/configuration'
+require 'picatcha/client_helper'
+require 'picatcha/verify'
 
-module Recaptcha
+module Picatcha
   module VERSION #:nodoc:
     MAJOR = 0
-    MINOR = 2
-    TINY  = 2
+    MINOR = 0
+    TINY  = 0
     PATCH = 1
 
     STRING = [MAJOR, MINOR, TINY, PATCH].join('.')
   end
 
 
-  RECAPTCHA_API_SERVER_URL        = 'http://www.google.com/recaptcha/api'
-  RECAPTCHA_API_SECURE_SERVER_URL = 'https://www.google.com/recaptcha/api'
-  RECAPTCHA_VERIFY_URL            = 'http://www.google.com/recaptcha/api/verify'
+  PICATCHA_API_SERVER_URL        = 'http://api.picatcha.com' #'http://www.google.com/recaptcha/api'
+  PICATCHA_API_SECURE_SERVER_URL = #'https://www.google.com/recaptcha/api'
+  PICATCHA_VERIFY_URL            = 'http://api.picatcha.com/v' #'http://www.google.com/recaptcha/api/verify'
 
   SKIP_VERIFY_ENV = ['test', 'cucumber']
 
@@ -49,10 +49,10 @@ module Recaptcha
     result
   end
 
-  class RecaptchaError < StandardError
+  class PicatchaError < StandardError
   end
 end
 
 if defined?(Rails)
-  require 'recaptcha/rails'
+  require 'picatcha/rails'
 end

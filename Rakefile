@@ -3,12 +3,12 @@ require 'rake'
 begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
-    gem.name           = "recaptcha"
-    gem.description    = "This plugin adds helpers for the reCAPTCHA API "
-    gem.summary        = "Helpers for the reCAPTCHA API"
-    gem.homepage       = "http://ambethia.com/recaptcha"
-    gem.authors        = ["Jason L. Perry"]
-    gem.email          = "jasper@ambethia.com"
+    gem.name           = "picatcha"
+    gem.description    = "This plugin adds helpers for the Picatcha API "
+    gem.summary        = "Helpers for the Picatcha API"
+    gem.homepage       = "http://www.picatcha.com"
+    gem.authors        = ["Sean Carey","Jason L. Perry"]
+    gem.email          = "sean@picatcha.com"
     gem.files.reject! { |fn| fn.include? ".gitignore" }
     gem.add_development_dependency "mocha"
     gem.add_development_dependency "activesupport"

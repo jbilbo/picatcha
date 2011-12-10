@@ -2,4 +2,6 @@
 # You can also install it as a gem:
 #   config.gem "ambethia-recaptcha", :lib => "recaptcha/rails", :source => "http://gems.github.com"
 
-require 'recaptcha/rails'
+require 'picatcha/rails'
+require 'net/http'
+require 'json'

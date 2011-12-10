@@ -1,4 +1,4 @@
-module Recaptcha
+module Picatcha
   # This class enables detailed configuration of the recaptcha services.
   # 
   # By calling
@@ -37,13 +37,13 @@ module Recaptcha
                   :proxy
 
     def initialize #:nodoc:
-      @nonssl_api_server_url = RECAPTCHA_API_SERVER_URL
-      @ssl_api_server_url    = RECAPTCHA_API_SECURE_SERVER_URL
-      @verify_url            = RECAPTCHA_VERIFY_URL
+      @nonssl_api_server_url = PICATCHA_API_SERVER_URL
+      @ssl_api_server_url    = PICATCHA_API_SECURE_SERVER_URL
+      @verify_url            = PICATCHA_VERIFY_URL
       @skip_verify_env       = SKIP_VERIFY_ENV
 
-      @private_key           = ENV['RECAPTCHA_PRIVATE_KEY']
-      @public_key            = ENV['RECAPTCHA_PUBLIC_KEY']
+      @private_key           = ENV['PICATCHA_PRIVATE_KEY']
+      @public_key            = ENV['PICATCHA_PUBLIC_KEY']
     end
 
     def api_server_url(ssl = false) #:nodoc:
