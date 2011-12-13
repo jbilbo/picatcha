@@ -13,9 +13,9 @@ module Picatcha
   end
 
 
-  PICATCHA_API_SERVER_URL        = 'http://api.picatcha.com' #'http://www.google.com/recaptcha/api'
+  PICATCHA_API_SERVER_URL        = 'http://api.picatcha.com'
   PICATCHA_API_SECURE_SERVER_URL = #'https://www.google.com/recaptcha/api'
-  PICATCHA_VERIFY_URL            = 'http://api.picatcha.com/v' #'http://www.google.com/recaptcha/api/verify'
+  PICATCHA_VERIFY_URL            = 'http://api.picatcha.com/v'
 
   SKIP_VERIFY_ENV = ['test', 'cucumber']
 

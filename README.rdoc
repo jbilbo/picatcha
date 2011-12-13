@@ -1,72 +1,65 @@
 = reCAPTCHA
 
-Author::    Jason L Perry (http://ambethia.com)
-Copyright:: Copyright (c) 2007 Jason L Perry
+Author::    Sean Carey (www.picatcha.com), Jason L Perry (http://ambethia.com)
+Copyright:: Copyright (c) 2011 Sean Carey, 2007 Jason L Perry
 License::   {MIT}[http://creativecommons.org/licenses/MIT/]
-Info::      http://ambethia.com/recaptcha
-Git::       http://github.com/ambethia/recaptcha/tree/master
+Info::      http://www.picatcha.com
+Git::       http://github.com/naryasece/picatcha/
 Bugs::      http://github.com/ambethia/recaptcha/issues
 
-This plugin adds helpers for the {reCAPTCHA API}[http://recaptcha.net]. In your
-views you can use the +recaptcha_tags+ method to embed the needed javascript,
-and you can validate in your controllers with +verify_recaptcha+.
+This plugin is based on the work done by Jason L Perry for his reCaptcha plugin, to allow users to integrate {Picatcha}[http://www.picatcha.com] anti-abuse protection API to your project.
 
-Beforehand you need to configure Recaptcha with your custom private and public
-key. You may find detailed examples below. Exceptions will be raised if you
-call these methods and the keys can't be found.
+Instead of deciphering garbled text to prove that you are human, Picatcha allows your users to prove they are human by selecting images. 90% of text CAPTCHAs can be defeated by computers leaving your project vulnerable to spam and other internet abuse.
+
+In your views, you can put a +picatcha_+tags method to imbed all the necessary Javascript and HTML into your form. To verify it, use the +verify_picatcha+ in your page's controller.
+
+Before use you must configure Picatcha with your site's private and public keys. These can be obtained at {www.picatcha.com/signup}[http://www.picatcha.com/signup].
 
 == About this fork
 
-This fork tries to introduces a more convenient way to configure recaptcha's
-settings. The API will be inspired by {Thoughtbot's
-Hoptoad}[http://robots.thoughtbot.com/post/344833329/mygem-configure-block].
+This fork adapts the original recaptcha gem to work with Picatcha's new Image CAPTCHA system.
 
 == Rails Installation
 
-reCAPTCHA for Rails, add this to your Gemfile:
+Picatcha for Rails, add this to your Gemfile:
 
-  gem "recaptcha", :require => "recaptcha/rails"
+  gem "picatcha", :require => "picatcha/rails"
 
 Or, it can be installed as a gem:
 
-  config.gem "recaptcha", :lib => "recaptcha/rails"
+  config.gem "picatcha", :lib => "picatcha/rails"
+  
+Or, it can be installed manually (if you downloaded it from our website)
+
+  gem install ./picatcha-0.0.1.gem
 
 Or, as a standard rails plugin:
 
   script/plugin install git://github.com/ambethia/recaptcha.git
-
-== Merb Installation
-
-reCAPTCHA can also be used in a Merb application when installed as a gem:
-
-  dependency "alm-recaptcha", ">=0.2.2.1", :require_as => "recaptcha/merb"
-
-Initial Merb compatability funded by ALM Labs.
 
 == Setting up your API Keys
 
 There are multiple ways to setup your reCAPTCHA API key once you
 {obtain}[http://recaptcha.net/whyrecaptcha.html] a pair.
 
-=== Recaptcha.configure
+=== Picatcha.configure
 
 You may use the block style configuration. The following code could be placed
-into a +config/initializers/recaptcha.rb+ when used in a Rails project.
+into a +config/initializers/picatcha.rb+ when used in a Rails project.
 
-  Recaptcha.configure do |config|
-    config.public_key  = '6Lc6BAAAAAAAAChqRbQZcn_yyyyyyyyyyyyyyyyy'
-    config.private_key = '6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx'
-    config.proxy = 'http://myrpoxy.com.au:8080'
+  Picatcha.configure do |config|
+    config.public_key  = '(type in your public key here)'
+    config.private_key = '(type in your private key here)'
   end
 
-This way, you may also set additional options to fit recaptcha into your
+This way, you may also set additional options to fit Picatcha into your
 deployment environment.
 
-== Recaptcha#with_configuration
+== Picatcha#with_configuration
 
-If you want to temporarily overwrite the configuration you set with `Recaptcha.configure` (when testing, for example), you can use a `Recaptcha#with_configuration` block:
+If you want to temporarily overwrite the configuration you set with `Picatcha.configure` (when testing, for example), you can use a `Picatcha#with_configuration` block:
 
-  Recaptcha.configure(:public_key => '12345') do
+  Picatcha.configure(:public_key => '12345') do
     # Do stuff with the overwritten public_key.
   end
 
@@ -94,11 +87,11 @@ reCAPTCHA setups.
 
 == To use 'recaptcha'
 
-Add +recaptcha_tags+ to each form you want to protect.
+Add +picatcha_tags+ to each form you want to protect.
 
-And, add +verify_recaptcha+ logic to each form action that you've protected.
+And, add +verify_picatcha+ logic to each form action that you've protected. Picatcha will return true for someone who passed, and false for someone who failed. 
 
-=== +recaptcha_tags+
+=== +picatcha_tags+
 
 Some of the options available:
 
