@@ -25,10 +25,13 @@ module Picatcha
           http = Net::HTTP
         end
         
+        if Picatcha.configuration.public_key==nil && options[:public_key] == nil
+          error = "Please enter a public key to use Piatcha"
+        end  
         
         # checks if the picatcha is empty, if so then returns false
         if params[:picatcha]["r"]==nil
-          flash[:error] = "Please fill out Picatcha before proceeding"
+          error = "Please fill out Picatcha before proceeding"
           return false
         end
 
@@ -67,8 +70,17 @@ module Picatcha
         puts "response.body"
         puts response.body
         
+        if response.body !=nil
+          parsed_json = JSON(response.body)
+        else
+          error = 'No reponse captured'
+          return false
+        end
         
-        parsed_json = JSON(response.body)
+        puts "error?"
+        puts parsed_json["e"]
+        
+        error = parsed_json["e"]
         
         # so far just a simple if.. else to check if the picatcha was 
         # solved correctly. will revisit later and make it more
@@ -76,12 +88,12 @@ module Picatcha
         if parsed_json["s"]==true
           return true
         else
-          #flash[:picatcha_error] = error
-          # if model
-          #   message = "Sorry, you incorrectly filled out Picatcha. Please try again."
-          #   message = I18n.translate(:'picatcha.errors.verification_failed', :default => message) if defined?(I18n)
-          #   model.errors.add attribute, options[:message] || message
-          # end
+          flash[:picatcha_error] = error
+          if model
+            message = "Sorry, you incorrectly filled out Picatcha. Please try again."
+            message = I18n.translate(:'picatcha.errors.verification_failed', :default => message) if defined?(I18n)
+            model.errors.add attribute, options[:message] || message
+          end
           return false
         end
         

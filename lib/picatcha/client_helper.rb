@@ -10,12 +10,13 @@ module Picatcha
       uri   = Picatcha.configuration.api_server_url(options[:ssl])
       html  = ""
       elm_id = "picatcha"
+      
       if options[:display]
         html << %{<script type="text/javascript">\n}
         html << %{  var RecaptchaOptions = #{options[:display].to_json};\n}
         html << %{</script>\n}
       end
-      if options[:ajax]
+      #if options[:ajax]
         html << <<-EOS
             <script type="text/javascript" src="#{uri}/static/client/jquery.min.js"></script>
             <script type="text/javascript" src="#{uri}/static/client/picatcha.js"></script>
@@ -37,22 +38,22 @@ module Picatcha
 #            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(rc_script_tag);
 #          </script>
 #        EOS
-      else
-        html << %{<script type="text/javascript" src="#{uri}/challenge?k=#{key}}
-        html << %{#{error ? "&amp;error=#{CGI::escape(error)}" : ""}"></script>\n}
-        unless options[:noscript] == false
-          html << %{<noscript>\n  }
-          html << %{<iframe src="#{uri}/noscript?k=#{key}" }
-          html << %{height="#{options[:iframe_height] ||= 300}" }
-          html << %{width="#{options[:iframe_width]   ||= 500}" }
-          html << %{style="border:none;"></iframe><br/>\n  }
-          html << %{<textarea name="recaptcha_challenge_field" }
-          html << %{rows="#{options[:textarea_rows] ||= 3}" }
-          html << %{cols="#{options[:textarea_cols] ||= 40}"></textarea>\n  }
-          html << %{<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>}
-          html << %{</noscript>\n}
-        end
-      end
+      # else
+      #   html << %{<script type="text/javascript" src="#{uri}/challenge?k=#{key}}
+      #   html << %{#{error ? "&amp;error=#{CGI::escape(error)}" : ""}"></script>\n}
+      #   unless options[:noscript] == false
+      #     html << %{<noscript>\n  }
+      #     html << %{<iframe src="#{uri}/noscript?k=#{key}" }
+      #     html << %{height="#{options[:iframe_height] ||= 300}" }
+      #     html << %{width="#{options[:iframe_width]   ||= 500}" }
+      #     html << %{style="border:none;"></iframe><br/>\n  }
+      #     html << %{<textarea name="recaptcha_challenge_field" }
+      #     html << %{rows="#{options[:textarea_rows] ||= 3}" }
+      #     html << %{cols="#{options[:textarea_cols] ||= 40}"></textarea>\n  }
+      #     html << %{<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>}
+      #     html << %{</noscript>\n}
+      #   end
+      #end
       return (html.respond_to?(:html_safe) && html.html_safe) || html
     end # picatcha_tags
   end # ClientHelper

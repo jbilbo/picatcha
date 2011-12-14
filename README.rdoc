@@ -1,4 +1,4 @@
-= reCAPTCHA
+= Picatcha
 
 Author::    Sean Carey (www.picatcha.com), Jason L Perry (http://ambethia.com)
 Copyright:: Copyright (c) 2011 Sean Carey, 2007 Jason L Perry
@@ -95,22 +95,21 @@ And, add +verify_picatcha+ logic to each form action that you've protected. Pica
 
 Some of the options available:
 
-<tt>:ssl</tt>::         Uses secure http for captcha widget (default +false+)
+<tt>:ssl</tt>::         Picatcha currently does not have an 
 <tt>:noscript</tt>::    Include <noscript> content (default +true+)
 <tt>:display</tt>::     Takes a hash containing the +theme+ and +tabindex+ options per the API. (default +nil+)
-<tt>:ajax</tt>::        Render the dynamic AJAX captcha per the API. (default +false+)
+<tt>:ajax</tt>::        The ajax option has been disabled, because Picatcha currently does not have an iframe fallback (and therefore requires javascript to generate). This may change in the future as the code evolves.
 <tt>:public_key</tt>::  Your public API key, takes precedence over the ENV variable (default +nil+)
-<tt>:error</tt>::       Override the error code returned from the reCAPTCHA API (default +nil+)
+<tt>:error</tt>::       Override the error code returned from the Picatcha API (default +nil+)
 
 You can also override the html attributes for the sizes of the generated +textarea+ and +iframe+
 elements, if CSS isn't your thing. Inspect the source of +recaptcha_tags+ to see these options.
 
-=== +verify_recaptcha+
+There are some differences from the reCaptcha gem, first, Picatcha does not have an SSL connection yet. Also, picatcha requires JavaScript to generate the captcha. Those options currently will have no effect, but might be available in the future.
 
-This method returns +true+ or +false+ after processing the parameters from the reCAPTCHA widget. Why
-isn't this a model validation? Because that violates MVC. You can use it like this, or how ever you
-like. Passing in the ActiveRecord object is optional, if you do--and the captcha fails to verify--an
-error will be added to the object for you to use.
+=== +verify_picatcha+
+
+This method returns +true+ or +false+ after processing the parameters from the Picatcha widget. Similar to the reCaptcha gem, it is not a model validation, because that violates MVC. You can use it like this, or how ever you like. Passing in the ActiveRecord object is optional, if you do--and the captcha fails to verify--an error will be added to the object for you to use.
 
 Some of the options available:
 
@@ -118,10 +117,10 @@ Some of the options available:
 <tt>:attribute</tt>::   Model attribute to receive errors (default :base)
 <tt>:message</tt>::     Custom error message
 <tt>:private_key</tt>:: Your private API key, takes precedence over the ENV variable (default +nil+).
-<tt>:timeout</tt>::     The number of seconds to wait for reCAPTCHA servers before give up. (default +3+)
+<tt>:timeout</tt>::     The number of seconds to wait for Picatcha servers before give up. (default +3+)
 
   respond_to do |format|
-    if verify_recaptcha(:model => @post, :message => "Oh! It's error with reCAPTCHA!") && @post.save
+    if verify_picatcha(:model => @post, :message => "Oh! It's error with Picatcha!") && @post.save
       # ...
     else
       # ...
@@ -129,12 +128,12 @@ Some of the options available:
   end
 
 == I18n support
-reCAPTCHA passes two types of error explanation to a linked model. It will use the I18n gem 
+Picatcha passes two types of error explanation to a linked model. It will use the I18n gem 
 to translate the default error message if I18n is available. To customize the messages to your locale, 
 add these keys to your I18n backend:
 
-<tt>recaptcha.errors.verification_failed</tt>:: error message displayed if the captcha words didn't match
-<tt>recaptcha.errors.recaptcha_unavailable</tt>:: displayed if a timout error occured while attempting to verify the captcha
+<tt>picatcha.errors.verification_failed</tt>:: error message displayed if the captcha words didn't match
+<tt>picatcha.errors.picatcha_unavailable</tt>:: displayed if a timout error occured while attempting to verify the captcha
 
 == TODO
 * Remove Rails/ActionController dependencies
