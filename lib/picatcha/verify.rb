@@ -30,7 +30,7 @@ module Picatcha
         end  
         
         # checks if the picatcha is empty, if so then returns false
-        if params[:picatcha]["r"]==nil
+        if params[:picatcha].blank? || params[:picatcha]["r"]==nil
           error = "Please fill out Picatcha before proceeding"
           return false
         end
