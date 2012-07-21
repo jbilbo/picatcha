@@ -71,7 +71,7 @@ module Picatcha
         puts response.body
         
         if response.body !=nil
-          parsed_json = JSON(response.body)
+          parsed_json = ActiveSupport::JSON.decode(response.body)
         else
           error = 'No reponse captured'
           return false
